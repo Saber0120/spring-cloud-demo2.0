@@ -1,0 +1,16 @@
+# 3、集群:Eureka 通过互相注册的方式来实现高可用的部署，所以我们只需要将 Eureke Server 配置其他可用的 service-url 就能实现高可用部署.
+# 在搭建 Eureka Server 双节点或集群的时候，要把eureka.client.register-with-eureka和eureka.client.fetch-registry均改为true（默认）。
+# 否则会出现实例列表为空，且 peer2 不在 available-replicas 而在 unavailable-replicas 的情况（这时其实只是启动了两个单点实例）
+spring:
+  application:
+    name: eureka-server
+server:
+  port: 7001
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://peer2:7002/eureka/,http://peer3:7003/eureka/

@@ -1,0 +1,15 @@
+# 4、3台集群:在生产中我们可能需要三台或者大于三台的注册中心来保证服务的稳定性，配置的原理其实都一样，将注册中心分别指向其它的注册中心。
+# 和双节点的注册中心类似，每台注册中心分别又指向其它两个节点即可
+spring:
+  application:
+    name: eureka-server
+server:
+  port: 7003
+eureka:
+  instance:
+    hostname: peer3
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://peer1:7001/eureka/,http://peer2:7002/eureka/
